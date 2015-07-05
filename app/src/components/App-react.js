@@ -11,7 +11,6 @@ export default class App extends Component {
 			<ErrorModal />
 			<SearchFilter />
 			<ErrorButton />
-			<br />
 			<SearchResultGrid />
 		</div>;
 	}

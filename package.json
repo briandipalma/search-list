@@ -40,7 +40,6 @@
   "dependencies": {
     "baobab": "^1.1.1",
     "baobab-react": "^0.1.1",
-    "boron": "^0.1.2",
     "fixed-data-table": "^0.3.0",
     "react": "^0.13.3",
     "react-portal": "^0.6.0",
