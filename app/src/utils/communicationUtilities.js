@@ -25,15 +25,15 @@ export function retrieveGoodEndpointData(tree) {
 
 export function retreiveErrorEndpointMessage(tree) {
 	fetch(ERROR_ENDPOINT)
-		.then((response) => response.json())
-		.then((json) => tree.emit(ERROR_MESSAGE_RECEIVED, json.error));
+		.then(response => response.json())
+		.then(json => tree.emit(ERROR_MESSAGE_RECEIVED, json.error));
 }
 
 function fetchTerm(url, term, tree) {
 	// Fetch the search term.
 	const termSearchPromise = fetch(url)
-		.then((response) => response.json())
-		.then((json) => responseJSONExtracted(term, tree, json));
+		.then(response => response.json())
+		.then(json => responseJSONExtracted(term, tree, json));
 
 	// Store the Promise in "searchHistory".
 	tree.set(["searchHistory", term], termSearchPromise);

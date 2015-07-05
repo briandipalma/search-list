@@ -10,8 +10,8 @@ class SearchResultGrid extends Component {
 	render() {
 		// https://github.com/eslint/eslint/issues/1897
 		/*eslint-disable func-style */
-		const cellRenderer = (cellData) => cellData.toUpperCase();
-		const rowGetter = (rowIndex) => this.props.currentSearchResults[rowIndex];
+		const cellRenderer = cellData => cellData.toUpperCase();
+		const rowGetter = rowIndex => this.props.currentSearchResults[rowIndex];
 		/*eslint-enable func-style */
 
 		return <Table
