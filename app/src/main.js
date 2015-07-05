@@ -3,7 +3,6 @@ import Baobab from "baobab";
 import {root} from "baobab-react/higher-order";
 import "fixed-data-table/dist/fixed-data-table.css";
 
-import "../style/style.css";
 import App from "./components/App-react";
 import {retrieveGoodEndpointData} from "./utils/communicationUtilities";
 import {
