@@ -8,8 +8,11 @@ import {branch} from "baobab-react/higher-order";
 
 class SearchResultGrid extends Component {
 	render() {
+		// https://github.com/eslint/eslint/issues/1897
+		/*eslint-disable func-style */
 		const cellRenderer = (cellData) => cellData.toUpperCase();
 		const rowGetter = (rowIndex) => this.props.currentSearchResults[rowIndex];
+		/*eslint-enable func-style */
 
 		return <Table
 			rowHeight={50}

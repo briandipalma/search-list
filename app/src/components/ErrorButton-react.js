@@ -6,7 +6,10 @@ import {ERROR_MESSAGE_REQUESTED} from "../constants/searchListConstants";
 
 class ErrorButton extends Component {
 	render() {
+		// https://github.com/eslint/eslint/issues/1897
+		/*eslint-disable func-style */
 		const displayErrorMessage = () => this.context.tree.emit(ERROR_MESSAGE_REQUESTED);
+		/*eslint-enable func-style */
 
 		return <button onClick={displayErrorMessage}>Click to show error.</button>;
 	}
