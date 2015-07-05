@@ -3,24 +3,17 @@ import {
 	Table,
 	Column
 } from "fixed-data-table";
+import PropTypes from "baobab-react/prop-types";
+import {branch} from "baobab-react/higher-order";
 
-export default class SearchResultGrid extends Component {
-	componentWillMount() {
-		const currentSearchResultsCursor = this.props.tree.select('currentSearchResults');
-
-		this.setState({currentSearchResults: currentSearchResultsCursor.get()});
-
-		currentSearchResultsCursor
-			.on("update", () => this.setState({currentSearchResults: currentSearchResultsCursor.get()}));
-	}
-
+class SearchResultGrid extends Component {
 	render() {
-		const rowGetter = (rowIndex) => this.state.currentSearchResults[rowIndex];
+		const rowGetter = (rowIndex) => this.props.currentSearchResults[rowIndex];
 
 		return <Table
 			rowHeight={50}
 			rowGetter={rowGetter}
-			rowsCount={this.state.currentSearchResults.length}
+			rowsCount={this.props.currentSearchResults.length}
 			width={450}
 			height={300}
 			headerHeight={50}>
@@ -42,3 +35,13 @@ export default class SearchResultGrid extends Component {
 			</Table>;
 	}
 }
+
+SearchResultGrid.contextTypes = {
+	cursors: PropTypes.cursors
+};
+
+export default branch(SearchResultGrid, {
+	cursors: {
+		currentSearchResults: ["currentSearchResults"]
+	}
+});

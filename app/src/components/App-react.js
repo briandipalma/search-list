@@ -6,13 +6,9 @@ import SearchResultGrid from "./SearchResultGrid-react";
 export default class App extends Component {
 	render() {
 		return <div>
-			<SearchFilter onChange={this._searchFilterChanged.bind(this)} />
+			<SearchFilter />
 			<br />
-			<SearchResultGrid tree={this.props.tree} />
+			<SearchResultGrid />
 		</div>;
-	}
-
-	_searchFilterChanged(filterTerm) {
-		this.props.tree.set('searchFilterTerm', filterTerm);
 	}
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import Baobab from "baobab";
+import {root} from 'baobab-react/higher-order';
 import "fixed-data-table/dist/fixed-data-table.css";
 
 import "../style/style.css";
@@ -8,18 +9,23 @@ import {
 	searchForTerm,
 	retrieveGoodEndpointData
 } from "./utils/communicationUtilities";
+import {FILTER_TERM_CHANGED} from "./constants/searchListConstants";
 
-var stateTree = new Baobab({
-	currentSearchResults: [], // Current visible search results. Array<Results>
+const stateTree = new Baobab({
+	currentSearchResults: [], // Current search results. Array<Results>
 	searchFilterTerm: "", // What the user has typed into the search filter. string
 	searchHistory: {} // Search results cached here. term: string -> Array<Results> | Promise<Array<Results>>
 });
+const BaobabComposedApp = root(App, stateTree);
+const searchFilterTermCursor = stateTree.select("searchFilterTerm");
 
 // Fire off the initial good end point retrieval.
 retrieveGoodEndpointData(stateTree);
 
-const searchFilterTermCursor = stateTree.select("searchFilterTerm");
-// When the user changes the search filter search with the new term.
-searchFilterTermCursor.on("update", () => searchForTerm(searchFilterTermCursor.get(), stateTree));
+searchFilterTermCursor.on(FILTER_TERM_CHANGED, ({data, target}) => {
+	target.set(data);
+	// When the user changes the search filter search with the new term.
+	searchForTerm(data, stateTree)
+});
 
-React.render(<App tree={stateTree} />, document.body);
+React.render(<BaobabComposedApp />, document.body);

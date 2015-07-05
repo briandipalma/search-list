@@ -3,7 +3,7 @@ const SEARCH_ENDPOINT = GOOD_ENDPOINT + "?search=";
 
 export function searchForTerm(term, tree) {
 	// You don't want to search for a previously searched for term.
-	const cachedTermSearch = tree.get(`searchHistory ${term}`);
+	const cachedTermSearch = tree.get("searchHistory", term);
 
 	// If there is a value in the `searchHistory` for the term
 	if (cachedTermSearch) {
@@ -15,21 +15,23 @@ export function searchForTerm(term, tree) {
 		// Else the value is a Promise of the eventual value Promise<Array<Results>> so don't fetch.
 	} else {
 	// If there isn't
-		// then fetch the search term and store the Promise in `searchHistory`
-		const termSearchPromise = fetch(`${SEARCH_ENDPOINT}${term}`)
-			.then((response) => endpointResponded(term, tree, response));
-
-		tree.set(`searchHistory ${term}`, termSearchPromise);
-		// and set `currentSearchResults` to [].
-		tree.set("currentSearchResults", []);
+		fetchTerm(`${SEARCH_ENDPOINT}${term}`, term, tree);
 	}
 }
 
 export function retrieveGoodEndpointData(tree) {
-	const goodEndpointPromise = fetch(`${GOOD_ENDPOINT}`)
-		.then((response) => endpointResponded("", tree, response));
+	fetchTerm(GOOD_ENDPOINT, "", tree);
+}
 
-	tree.set(`searchHistory  `, goodEndpointPromise);
+function fetchTerm(url, term, tree) {
+	// Fetch the search term.
+	const termSearchPromise = fetch(url)
+		.then((response) => endpointResponded(term, tree, response));
+
+	// Store the Promise in "searchHistory".
+	tree.set(["searchHistory", term], termSearchPromise);
+	// And set `currentSearchResults` to [].
+	tree.set("currentSearchResults", []);
 }
 
 function endpointResponded(term, tree, response) {
@@ -42,7 +44,7 @@ function responseJSONExtracted(term, tree, response) {
 	// The response from a search is inside an `ancients` property.
 	response = response.ancients ? response.ancients : response;
 	// Store the response data into `searchHistory term`
-	tree.set(`searchHistory ${term}`, response);
+	tree.set(["searchHistory", term], response);
 
 	// If the term is the same as `searchFilterTerm`
 	if (term === tree.get("searchFilterTerm")) {
