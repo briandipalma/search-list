@@ -1,43 +1,44 @@
+import {ERROR_MESSAGE_RECEIVED} from "../constants/searchListConstants";
+
 const GOOD_ENDPOINT = "https://athena-7.herokuapp.com/ancients.json";
-const SEARCH_ENDPOINT = GOOD_ENDPOINT + "?search=";
+const SEARCH_ENDPOINT = `${GOOD_ENDPOINT}?search=`;
+const ERROR_ENDPOINT = `${GOOD_ENDPOINT}?error=true`;
 
 export function searchForTerm(term, tree) {
-	// You don't want to search for a previously searched for term.
+	// We don't want to search for a previously searched for term.
 	const cachedTermSearch = tree.get("searchHistory", term);
 
-	// If there is a value in the `searchHistory` for the term
-	if (cachedTermSearch) {
-		// Check if the value is an Array.
-		if (Array.isArray(cachedTermSearch)) {
-			// If the value is an Array then set `currentSearchResults` to the Array.
-			tree.set("currentSearchResults", cachedTermSearch);
-		}
-		// Else the value is a Promise of the eventual value Promise<Array<Results>> so don't fetch.
-	} else {
-	// If there isn't
+	// Check if the value is an Array.
+	if (Array.isArray(cachedTermSearch)) {
+		// If the value is an Array then set `currentSearchResults` to the Array.
+		tree.set("currentSearchResults", cachedTermSearch);
+	} else if (cachedTermSearch === undefined) {
+		// If there isn't a `cachedTermSearch` fetch the data
 		fetchTerm(`${SEARCH_ENDPOINT}${term}`, term, tree);
 	}
+	// Else the value is a Promise of the eventual value Promise<Array<Results>> so don't fetch.
 }
 
 export function retrieveGoodEndpointData(tree) {
 	fetchTerm(GOOD_ENDPOINT, "", tree);
 }
 
+export function retreiveErrorEndpointMessage(tree) {
+	fetch(ERROR_ENDPOINT)
+		.then((response) => response.json())
+		.then((json) => tree.emit(ERROR_MESSAGE_RECEIVED, json.error));
+}
+
 function fetchTerm(url, term, tree) {
 	// Fetch the search term.
 	const termSearchPromise = fetch(url)
-		.then((response) => endpointResponded(term, tree, response));
+		.then((response) => response.json())
+		.then((json) => responseJSONExtracted(term, tree, json));
 
 	// Store the Promise in "searchHistory".
 	tree.set(["searchHistory", term], termSearchPromise);
 	// And set `currentSearchResults` to [].
 	tree.set("currentSearchResults", []);
-}
-
-function endpointResponded(term, tree, response) {
-	response
-		.json()
-		.then((json) => responseJSONExtracted(term, tree, json));
 }
 
 function responseJSONExtracted(term, tree, response) {
