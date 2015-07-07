@@ -1,3 +1,4 @@
+import "es6-promise";
 import "whatwg-fetch";
 import {ERROR_MESSAGE_RECEIVED} from "../constants/searchListConstants";
 
