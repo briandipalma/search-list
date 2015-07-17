@@ -7,7 +7,8 @@
     "build": "webpack --progress --colors",
     "start": "webpack-dev-server --progress --colors",
     "test": "mocha --compilers js:babel/register app/**/*-test.js --recursive",
-    "test:w": "chokidar '**/*.js' -i 'node_modules' -c 'npm run --silent test'"
+    "test:w": "chokidar '**/*.js' -i 'node_modules' -c 'npm run --silent test'",
+    "test:d": "mocha --compilers js:babel/register app/**/*-test.js --recursive --debug-brk"
   },
   "repository": {
     "type": "git",
