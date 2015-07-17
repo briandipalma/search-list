@@ -52,3 +52,5 @@ export default branch(SearchResultGrid, {
 		currentSearchResults: ["currentSearchResults"]
 	}
 });
+
+export {SearchResultGrid};
