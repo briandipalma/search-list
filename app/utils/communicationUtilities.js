@@ -1,5 +1,5 @@
 import "es6-promise";
-import "whatwg-fetch";
+import "isomorphic-fetch";
 import {ERROR_MESSAGE_RECEIVED} from "../constants/searchListConstants";
 
 const GOOD_ENDPOINT = "https://athena-7.herokuapp.com/ancients.json";
