@@ -41,6 +41,17 @@ describe("SearchResultGrid", () => {
 		equal("FixedDataTableColumn", firstChild.type.displayName);
 		equal("FixedDataTableColumn", secondChild.type.displayName);
 		equal("FixedDataTableColumn", thirdChild.type.displayName);
+	});
+
+	it("has grid column renderers that capitalize their data.", () => {
+		// Given.
+		const searchResultGridOutput = createComponent(SearchResultGrid, {
+			currentSearchResults
+		});
+
+		const firstChild = searchResultGridOutput.props.children[0];
+		const secondChild = searchResultGridOutput.props.children[1];
+		const thirdChild = searchResultGridOutput.props.children[2];
 
 		// Verify the data is displayed in capitals.
 		equal("ZEUS", firstChild.props.cellRenderer("zeus"));
