@@ -20,12 +20,10 @@ export function errorMessageRequested(stateTree) {
 	}
 }
 
-export function errorMessageReceived(stateTree) {
-	return ({data}) => {
-		stateTree.set("errorMessage", data);
-		// We need to commit the message value for it to display correctly the first time.
-		// The value does appear to be correct in the passed in props though, possible bug in Baobab HOCs?
-		stateTree.commit();
-		stateTree.set("errorModalDisplayed", true);
-	};
+export function errorMessageReceived(errorMessage, stateTree) {
+	stateTree.set("errorMessage", errorMessage);
+	// We need to commit the message value for it to display correctly the first time.
+	// The value does appear to be correct in the passed in props though, possible bug in Baobab HOCs?
+	stateTree.commit();
+	stateTree.set("errorModalDisplayed", true);
 }

@@ -1,6 +1,8 @@
+// These two polyfills are necessary for IE.
 import "es6-promise";
 import "isomorphic-fetch";
-import {ERROR_MESSAGE_RECEIVED} from "../constants/searchListConstants";
+
+import {errorMessageReceived} from "../actionhandlers/searchListActionHandlers";
 
 const GOOD_ENDPOINT = "https://athena-7.herokuapp.com/ancients.json";
 const SEARCH_ENDPOINT = `${GOOD_ENDPOINT}?search=`;
@@ -28,7 +30,7 @@ export function retrieveGoodEndpointData(tree) {
 export function retreiveErrorEndpointMessage(tree) {
 	fetch(ERROR_ENDPOINT)
 		.then(response => response.json())
-		.then(json => tree.emit(ERROR_MESSAGE_RECEIVED, json.error));
+		.then(json => errorMessageReceived(json.error, tree));
 }
 
 function fetchTerm(url, term, tree) {
