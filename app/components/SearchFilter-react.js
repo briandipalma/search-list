@@ -30,8 +30,8 @@ class SearchFilter extends Component {
 }
 
 SearchFilter.contextTypes = {
-	tree: baobab,
-	cursors: cursors
+	cursors,
+	tree: baobab
 };
 
 export default branch(SearchFilter, {
