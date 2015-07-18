@@ -6,13 +6,11 @@ import "fixed-data-table/dist/fixed-data-table.css";
 import App from "./components/App-react";
 import {retrieveGoodEndpointData} from "./utils/communicationUtilities";
 import {
-	FILTER_TERM_CHANGED,
 	ERROR_MODAL_CLOSED,
 	ERROR_MESSAGE_RECEIVED,
 	ERROR_MESSAGE_REQUESTED
 } from "./constants/searchListConstants";
 import {
-	filterTermChanged,
 	errorModalClosed,
 	errorMessageReceived,
 	errorMessageRequested
@@ -29,8 +27,6 @@ const BaobabComposedApp = root(App, stateTree);
 
 // Fire off the initial good end point retrieval.
 retrieveGoodEndpointData(stateTree);
-
-stateTree.select("searchFilterTerm").on(FILTER_TERM_CHANGED, filterTermChanged(stateTree));
 
 stateTree.on(ERROR_MESSAGE_RECEIVED, errorMessageReceived(stateTree));
 stateTree.on(ERROR_MESSAGE_REQUESTED, errorMessageRequested(stateTree));

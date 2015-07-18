@@ -1,8 +1,11 @@
 import React, {Component} from "react";
-import PropTypes from "baobab-react/prop-types";
+import {
+	baobab,
+	cursors
+} from "baobab-react/prop-types";
 import {branch} from "baobab-react/higher-order";
 
-import {FILTER_TERM_CHANGED} from "../constants/searchListConstants";
+import {filterTermChanged} from "../actionhandlers/searchListActionHandlers";
 
 const filterStyles = {
 	marginRight: "10px",
@@ -14,7 +17,7 @@ class SearchFilter extends Component {
 		// https://github.com/eslint/eslint/issues/1897
 		/*eslint-disable func-style */
 		const onFilterChanged = ({target: {value}}) =>
-			this.context.cursors.searchFilterTerm.emit(FILTER_TERM_CHANGED, value);
+			filterTermChanged(value, this.context.cursors.searchFilterTerm, this.context.tree);
 		/*eslint-enable func-style */
 
 		return <input
@@ -27,7 +30,8 @@ class SearchFilter extends Component {
 }
 
 SearchFilter.contextTypes = {
-	cursors: PropTypes.cursors
+	tree: baobab,
+	cursors: cursors
 };
 
 export default branch(SearchFilter, {

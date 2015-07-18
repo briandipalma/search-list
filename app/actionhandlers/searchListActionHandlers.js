@@ -3,12 +3,10 @@ import {
 	retreiveErrorEndpointMessage
 } from "../utils/communicationUtilities";
 
-export function filterTermChanged(stateTree) {
-	return ({data, target}) => {
-		target.set(data);
-		// When the user changes the search filter search with the new term.
-		searchForTerm(data, stateTree);
-	};
+export function filterTermChanged(searchFilterValue, searchFilterTermCursor, stateTree) {
+	searchFilterTermCursor.set(searchFilterValue);
+	// When the user changes the search filter search with the new term.
+	searchForTerm(searchFilterValue, stateTree);
 }
 
 export function errorMessageRequested(stateTree) {
