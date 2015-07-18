@@ -1,9 +1,7 @@
-import React, {Component} from "react";
-import PropTypes from "baobab-react/prop-types";
-import {branch} from "baobab-react/higher-order";
 import Portal from "react-portal";
-
-import {ERROR_MODAL_CLOSED} from "../constants/searchListConstants";
+import React, {Component} from "react";
+import {baobab} from "baobab-react/prop-types";
+import {branch} from "baobab-react/higher-order";
 
 const modalShieldStyles = {
 	top: 0,
@@ -44,7 +42,7 @@ class ErrorModal extends Component {
 	render() {
 		// https://github.com/eslint/eslint/issues/1897
 		/*eslint-disable func-style */
-		const closeModal = () => this.context.cursors.errorModalDisplayed.emit(ERROR_MODAL_CLOSED);
+		const closeModal = () => this.context.tree.set("errorModalDisplayed", false);
 		/*eslint-enable func-style */
 
 		return <Portal style={modalShieldStyles} isOpened={this.props.errorModalDisplayed}>
@@ -57,7 +55,7 @@ class ErrorModal extends Component {
 }
 
 ErrorModal.contextTypes = {
-	cursors: PropTypes.cursors
+	tree: baobab
 };
 
 export default branch(ErrorModal, {

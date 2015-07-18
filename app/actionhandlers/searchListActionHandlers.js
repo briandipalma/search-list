@@ -31,7 +31,3 @@ export function errorMessageReceived(stateTree) {
 		stateTree.set("errorModalDisplayed", true);
 	};
 }
-
-export function errorModalClosed(stateTree) {
-	return () => stateTree.set("errorModalDisplayed", false);
-}

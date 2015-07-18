@@ -6,12 +6,10 @@ import "fixed-data-table/dist/fixed-data-table.css";
 import App from "./components/App-react";
 import {retrieveGoodEndpointData} from "./utils/communicationUtilities";
 import {
-	ERROR_MODAL_CLOSED,
 	ERROR_MESSAGE_RECEIVED,
 	ERROR_MESSAGE_REQUESTED
 } from "./constants/searchListConstants";
 import {
-	errorModalClosed,
 	errorMessageReceived,
 	errorMessageRequested
 } from "./actionhandlers/searchListActionHandlers";
@@ -30,6 +28,5 @@ retrieveGoodEndpointData(stateTree);
 
 stateTree.on(ERROR_MESSAGE_RECEIVED, errorMessageReceived(stateTree));
 stateTree.on(ERROR_MESSAGE_REQUESTED, errorMessageRequested(stateTree));
-stateTree.select("errorModalDisplayed").on(ERROR_MODAL_CLOSED, errorModalClosed(stateTree));
 
 React.render(<BaobabComposedApp />, document.body);
