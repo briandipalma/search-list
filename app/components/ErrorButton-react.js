@@ -1,14 +1,14 @@
 import React, {Component} from "react";
-import PropTypes from "baobab-react/prop-types";
+import {baobab} from "baobab-react/prop-types";
 import {branch} from "baobab-react/higher-order";
 
-import {ERROR_MESSAGE_REQUESTED} from "../constants/searchListConstants";
+import {errorMessageRequested} from "../actionhandlers/searchListActionHandlers";
 
 class ErrorButton extends Component {
 	render() {
 		// https://github.com/eslint/eslint/issues/1897
 		/*eslint-disable func-style */
-		const displayErrorMessage = () => this.context.tree.emit(ERROR_MESSAGE_REQUESTED);
+		const displayErrorMessage = () => errorMessageRequested(this.context.tree);
 		/*eslint-enable func-style */
 
 		return <button onClick={displayErrorMessage}>Click to show error.</button>;
@@ -16,7 +16,7 @@ class ErrorButton extends Component {
 }
 
 ErrorButton.contextTypes = {
-	tree: PropTypes.baobab
+	tree: baobab
 };
 
 export default branch(ErrorButton);

@@ -10,16 +10,14 @@ export function filterTermChanged(searchFilterValue, searchFilterTermCursor, sta
 }
 
 export function errorMessageRequested(stateTree) {
-	return () => {
-		// If the error message hasn't already been requested then request it.
-		if (stateTree.get("errorMessage") === "ERROR_MESSAGE") {
-			stateTree.set("errorMessage", "ERROR_MESSAGE_PENDING");
-			retreiveErrorEndpointMessage(stateTree);
-		} else if (stateTree.get("errorMessage") !== "ERROR_MESSAGE_PENDING") {
-			// Else if it has been requested and we have received the error message set "errorModalDisplayed" to true.
-			stateTree.set("errorModalDisplayed", true);
-		}
-	};
+	// If the error message hasn't already been requested then request it.
+	if (stateTree.get("errorMessage") === "ERROR_MESSAGE") {
+		stateTree.set("errorMessage", "ERROR_MESSAGE_PENDING");
+		retreiveErrorEndpointMessage(stateTree);
+	} else if (stateTree.get("errorMessage") !== "ERROR_MESSAGE_PENDING") {
+		// Else if it has been requested and we have received the error message set "errorModalDisplayed" to true.
+		stateTree.set("errorModalDisplayed", true);
+	}
 }
 
 export function errorMessageReceived(stateTree) {

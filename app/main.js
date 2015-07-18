@@ -6,12 +6,10 @@ import "fixed-data-table/dist/fixed-data-table.css";
 import App from "./components/App-react";
 import {retrieveGoodEndpointData} from "./utils/communicationUtilities";
 import {
-	ERROR_MESSAGE_RECEIVED,
-	ERROR_MESSAGE_REQUESTED
+	ERROR_MESSAGE_RECEIVED
 } from "./constants/searchListConstants";
 import {
-	errorMessageReceived,
-	errorMessageRequested
+	errorMessageReceived
 } from "./actionhandlers/searchListActionHandlers";
 
 const stateTree = new Baobab({
@@ -27,6 +25,5 @@ const BaobabComposedApp = root(App, stateTree);
 retrieveGoodEndpointData(stateTree);
 
 stateTree.on(ERROR_MESSAGE_RECEIVED, errorMessageReceived(stateTree));
-stateTree.on(ERROR_MESSAGE_REQUESTED, errorMessageRequested(stateTree));
 
 React.render(<BaobabComposedApp />, document.body);
