@@ -3,7 +3,7 @@ import {
 	Table,
 	Column
 } from "fixed-data-table";
-import PropTypes from "baobab-react/prop-types";
+import {cursors} from "baobab-react/prop-types";
 import {branch} from "baobab-react/higher-order";
 
 class SearchResultGrid extends Component {
@@ -44,7 +44,7 @@ class SearchResultGrid extends Component {
 }
 
 SearchResultGrid.contextTypes = {
-	cursors: PropTypes.cursors
+	cursors
 };
 
 export default branch(SearchResultGrid, {
