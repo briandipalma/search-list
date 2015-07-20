@@ -3,7 +3,6 @@ import {
 	Table,
 	Column
 } from "fixed-data-table";
-import {cursors} from "baobab-react/prop-types";
 import {branch} from "baobab-react/higher-order";
 
 class SearchResultGrid extends Component {
@@ -42,10 +41,6 @@ class SearchResultGrid extends Component {
 			</Table>;
 	}
 }
-
-SearchResultGrid.contextTypes = {
-	cursors
-};
 
 export default branch(SearchResultGrid, {
 	cursors: {
