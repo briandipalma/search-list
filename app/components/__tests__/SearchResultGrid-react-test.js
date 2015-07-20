@@ -5,6 +5,10 @@ import {
 	describe
 } from "mocha";
 import {Children} from "react";
+import {
+	Table,
+	Column
+} from "fixed-data-table";
 
 import {SearchResultGrid} from "../SearchResultGrid-react";
 
@@ -27,7 +31,7 @@ describe("SearchResultGrid", () => {
 		});
 
 		// Then.
-		equal("FixedDataTable", searchResultGridOutput.type.displayName);
+		equal(Table, searchResultGridOutput.type);
 	});
 
 	it("renders three grid columns with correct column labels.", () => {
@@ -41,7 +45,7 @@ describe("SearchResultGrid", () => {
 			// Verify the column labels are correct.
 			equal(columnLabels[index], fixedDataTableColumn.props.label);
 			// Verify the table children are table columns.
-			equal("FixedDataTableColumn", fixedDataTableColumn.type.displayName);
+			equal(Column, fixedDataTableColumn.type);
 		});
 	});
 
