@@ -23,7 +23,7 @@ const modalStyles = {
 	right: 0,
 	bottom: 0,
 	margin: "auto",
-	maxWidth: "550px",
+	width: "550px",
 	maxHeight: "150px",
 	position: "absolute",
 	backgroundColor: "#ffffff"
